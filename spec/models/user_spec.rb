@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before :all do
-    @disease = Disease.create(name: 'COVID 19')
+    @disease = Disease.find_or_create_by!(name: 'COVID 19')
   end
 
   it "is valid a user record" do
