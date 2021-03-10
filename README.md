@@ -43,7 +43,7 @@ Une application fonctionnel en console.
 
 `bundle exec rspec spec/models/user_spec.rb` 
 
-ou via a console :
+ou via la console :
 
 ```
     user = User.create(name: "John Doe", birthdate: "2000-01-01")
