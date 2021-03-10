@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   # Note: Here I use Disease.first just to test. See README "(dans un soucis de garder ce test simple, on considère que le système ne traite que d’une maladie)"
   def verify(disease = Disease.first)
-    user_injections = injections.where(disease: disease).order(:performed_at)
+    user_injections = injections.where(disease: disease)
 
     case @age
     when 0...14
@@ -39,7 +39,7 @@ class User < ApplicationRecord
   # Un enfant (moins de 14 ans) ayant reçu 2 doses à 6 mois d’intervalles
   def lt14(user_injections)
     return if user_injections.size != 2
-    
+
     first_injection = user_injections.first.performed_at
     last_injection = user_injections.last.performed_at
     number_of_months = (last_injection.year * 12 + last_injection.month) - (first_injection.year * 12 + first_injection.month)
@@ -49,12 +49,12 @@ class User < ApplicationRecord
   # Un adulte (entre 14 et 65 ans) ayant reçu 1 doses au cours des 36 derniers mois
   # Question: Que faire dans le cas ou il en a eu 2 ?
   def gte14_lt65(user_injections)
-    user_injections.last.performed_at > (Time.now.to_date - 36.months)
+    user_injections.last.performed_at >= (Time.now.to_date - 36.months)
   end
 
   # Une personne âgée (> 65 ans) ayant reçu 1 dose au cours des 12 derniers mois
   # Question: Que faire dans le cas ou il en a eu 2 ?
   def gt65(user_injections)
-    user_injections.last.performed_at > (Time.now.to_date - 12.months)
+    user_injections.last.performed_at >= (Time.now.to_date - 12.months)
   end
 end
