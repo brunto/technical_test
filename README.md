@@ -38,3 +38,14 @@ On doit pouvoir tester pour un profil donné si il est à jour ou non en console
 Un repo Git avec l’historique des commits.
 
 Une application fonctionnel en console.
+
+## Comment tester :
+
+`bundle exec rspec spec/models/user_spec.rb` 
+
+ou via a console :
+
+```
+    user = User.create(name: "John Doe", birthdate: "2000-01-01")
+    user.verify
+```
